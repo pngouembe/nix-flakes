@@ -1,0 +1,11 @@
+{ pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    git
+    nixfmt
+    nil
+    nixd
+    zed-editor
+  ];
+}

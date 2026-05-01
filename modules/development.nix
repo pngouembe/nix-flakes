@@ -7,5 +7,6 @@
     nil
     nixd
     zed-editor
+    gcc
   ];
 }

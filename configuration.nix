@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -68,6 +73,12 @@
   };
 
   programs.firefox.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
   programs.steam.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -80,11 +91,17 @@
 
   environment.systemPackages = with pkgs; [
     git
+    kitty
     nixfmt
     nil
     nixd
     zed-editor
+    vicinae
   ];
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   system.stateVersion = "25.11";
 }

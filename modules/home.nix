@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -169,6 +170,9 @@ in
     # Development
     neovim
     rustup
+
+    # Browsers
+    inputs.zen-browser.packages.${pkgs.system}.default
 
     # Fonts
     nerd-fonts.fira-code

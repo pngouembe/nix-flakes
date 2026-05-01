@@ -26,6 +26,10 @@
 
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
   time.timeZone = "Europe/Paris";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -43,8 +47,8 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
@@ -97,6 +101,8 @@
     nixd
     zed-editor
     vicinae
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.noctalia.inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
   ];
 
   environment.sessionVariables = {

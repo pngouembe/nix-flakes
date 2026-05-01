@@ -122,25 +122,29 @@ in
 
   # --- Neovim / NvChad ---
 
-  # User config files placed according to dotfiles/nvim/links.prop.
-  # These are live symlinks so editing dotfiles is reflected immediately.
-  home.file.".config/nvim/lua/custom/chadrc.lua".source = link "${dotfiles}/nvim/chadrc.lua";
-  home.file.".config/nvim/lua/custom/init.lua".source = link "${dotfiles}/nvim/init.lua";
-  home.file.".config/nvim/lua/custom/plugins.lua".source = link "${dotfiles}/nvim/plugins/init.lua";
-  home.file.".config/nvim/lua/custom/mappings.lua".source = link "${dotfiles}/nvim/mappings.lua";
-  home.file.".config/nvim/lua/custom/configs/lspconfig.lua".source =
+  # User config files — live symlinks so editing dotfiles is reflected immediately.
+  # These follow the NvChad v2.5 starter structure (lua/ not lua/custom/).
+  home.file.".config/nvim/lua/chadrc.lua".source = link "${dotfiles}/nvim/chadrc.lua";
+  home.file.".config/nvim/lua/plugins/init.lua".source = link "${dotfiles}/nvim/plugins/init.lua";
+  home.file.".config/nvim/lua/configs/lspconfig.lua".source =
     link "${dotfiles}/nvim/configs/lspconfig.lua";
-  home.file.".config/nvim/lua/custom/configs/null-ls.lua".source =
+  home.file.".config/nvim/lua/configs/null-ls.lua".source =
     link "${dotfiles}/nvim/configs/null-ls.lua";
 
-  # Clone NvChad once on first activation; subsequent rebuilds skip this.
-  # Must run before writeBoundary so the directory exists before HM places
-  # the custom symlinks above.
+  # Clone the NvChad starter (not the plugin repo) on first activation.
+  # The starter provides init.lua + lazy bootstrap; NvChad itself is fetched
+  # by lazy.nvim at first launch.  If the old plugin-repo clone is present
+  # (identified by a missing init.lua), remove it first.
   home.activation.nvchadBootstrap = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+    if [ -d "$HOME/.config/nvim/.git" ] && [ ! -f "$HOME/.config/nvim/init.lua" ]; then
+      $DRY_RUN_CMD rm -rf "$HOME/.config/nvim"
+    fi
     if [ ! -f "$HOME/.config/nvim/init.lua" ]; then
       $DRY_RUN_CMD ${pkgs.git}/bin/git clone \
-        https://github.com/NvChad/NvChad \
+        https://github.com/NvChad/starter \
         "$HOME/.config/nvim" --depth 1
+      $DRY_RUN_CMD rm -f "$HOME/.config/nvim/lua/chadrc.lua"
+      $DRY_RUN_CMD rm -rf "$HOME/.config/nvim/lua/plugins"
     fi
   '';
 

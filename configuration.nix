@@ -37,14 +37,16 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
+  programs.zsh.enable = true;
+
   users.users.png = {
     isNormalUser = true;
     description = "Paul Ngouembe";
+    shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [ ];
   };
 
   nixpkgs.config.allowUnfree = true;

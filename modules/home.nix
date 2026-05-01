@@ -38,7 +38,7 @@ in
 
     # Source dotfile configs that don't belong to any HM program module.
     # starship/fzf/zoxide init lines are injected by their own HM modules below.
-    initExtra = ''
+    initContent = ''
       source ${dotfiles}/zsh/aliases.zsh
       source ${dotfiles}/zsh/git.zsh
       source ${dotfiles}/zsh/history.zsh
@@ -106,32 +106,28 @@ in
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
-    options = [ "--cmd" "cd" ];
+    options = [
+      "--cmd"
+      "cd"
+    ];
   };
 
   # --- Terminal emulator & multiplexers ---
 
-  home.file.".config/alacritty/alacritty.yml".source =
-    link "${dotfiles}/alacritty/alacritty.yml";
+  home.file.".config/alacritty/alacritty.yml".source = link "${dotfiles}/alacritty/alacritty.yml";
 
-  home.file.".config/tmux/tmux.conf".source =
-    link "${dotfiles}/tmux/tmux.conf";
+  home.file.".config/tmux/tmux.conf".source = link "${dotfiles}/tmux/tmux.conf";
 
-  home.file.".config/zellij/config.kdl".source =
-    link "${dotfiles}/zellij/config.kdl";
+  home.file.".config/zellij/config.kdl".source = link "${dotfiles}/zellij/config.kdl";
 
   # --- Neovim / NvChad ---
 
   # User config files placed according to dotfiles/nvim/links.prop.
   # These are live symlinks so editing dotfiles is reflected immediately.
-  home.file.".config/nvim/lua/custom/chadrc.lua".source =
-    link "${dotfiles}/nvim/chadrc.lua";
-  home.file.".config/nvim/lua/custom/init.lua".source =
-    link "${dotfiles}/nvim/init.lua";
-  home.file.".config/nvim/lua/custom/plugins.lua".source =
-    link "${dotfiles}/nvim/plugins/init.lua";
-  home.file.".config/nvim/lua/custom/mappings.lua".source =
-    link "${dotfiles}/nvim/mappings.lua";
+  home.file.".config/nvim/lua/custom/chadrc.lua".source = link "${dotfiles}/nvim/chadrc.lua";
+  home.file.".config/nvim/lua/custom/init.lua".source = link "${dotfiles}/nvim/init.lua";
+  home.file.".config/nvim/lua/custom/plugins.lua".source = link "${dotfiles}/nvim/plugins/init.lua";
+  home.file.".config/nvim/lua/custom/mappings.lua".source = link "${dotfiles}/nvim/mappings.lua";
   home.file.".config/nvim/lua/custom/configs/lspconfig.lua".source =
     link "${dotfiles}/nvim/configs/lspconfig.lua";
   home.file.".config/nvim/lua/custom/configs/null-ls.lua".source =
@@ -159,7 +155,7 @@ in
     # Modern CLI tools
     bat
     bottom
-    du-dust
+    dust
     eza
     fd
     ripgrep

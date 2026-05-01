@@ -9,6 +9,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Swap
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024; # 16GB
+    }
+  ];
+
   networking.hostName = "nixos";
 
   networking.networkmanager.enable = true;
@@ -52,19 +60,27 @@
   users.users.png = {
     isNormalUser = true;
     description = "Paul Ngouembe";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
   };
 
   programs.firefox.enable = true;
+  programs.steam.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and the new nix CLI
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   environment.systemPackages = with pkgs; [
     git
+    nixfmt
     nil
     nixd
     zed-editor

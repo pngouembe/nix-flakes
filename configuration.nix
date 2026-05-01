@@ -6,6 +6,7 @@
     ./modules/desktop.nix
     ./modules/gaming.nix
     ./modules/development.nix
+    ./modules/nvidia.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

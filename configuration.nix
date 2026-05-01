@@ -65,6 +65,9 @@
 
   environment.systemPackages = with pkgs; [
     git
+    nil
+    nixd
+    zed-editor
   ];
 
   system.stateVersion = "25.11";

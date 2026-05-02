@@ -149,6 +149,16 @@ in
     fi
   '';
 
+  # --- Cursor ---
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    name = "catppuccin-mocha-dark-cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = 24;
+  };
+
   # --- Packages ---
 
   home.packages = with pkgs; [

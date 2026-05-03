@@ -58,20 +58,5 @@
     "flakes"
   ];
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
-  };
-
-  nix.optimise.automatic = true;
-
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/home/png/workspace/nix-flakes";
-    dates = "weekly";
-    allowReboot = false;
-  };
-
   system.stateVersion = "25.11";
 }

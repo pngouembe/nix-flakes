@@ -181,6 +181,9 @@ in
     neovim
     rustup
 
+    # System monitor
+    resources
+
     # Browsers
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 

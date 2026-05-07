@@ -1,0 +1,34 @@
+{ ... }:
+{
+  flake.nixosModules.desktop = { pkgs, ... }: {
+    services.xserver.enable = true;
+    services.displayManager.gdm.enable = true;
+    services.desktopManager.gnome.enable = true;
+
+    services.xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
+
+    services.printing.enable = true;
+
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    hardware.bluetooth.enable = true;
+    services.upower.enable = true;
+    services.power-profiles-daemon.enable = true;
+
+    programs.firefox.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      kitty
+    ];
+  };
+}

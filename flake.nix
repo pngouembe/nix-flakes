@@ -10,6 +10,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
     hyprland.url = "github:hyprwm/Hyprland";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -25,22 +27,7 @@
     };
   };
 
-  outputs =
-    { nixpkgs, home-manager, ... }@inputs:
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.png = import ./modules/home.nix;
-          }
-        ];
-      };
-    };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    imports = [ (inputs.import-tree ./modules) ];
+  };
 }

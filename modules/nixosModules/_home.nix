@@ -141,11 +141,12 @@ in
       $DRY_RUN_CMD rm -rf "$HOME/.config/nvim"
     fi
     if [ ! -f "$HOME/.config/nvim/init.lua" ]; then
-      $DRY_RUN_CMD ${pkgs.git}/bin/git clone \
+      if $DRY_RUN_CMD ${pkgs.git}/bin/git clone \
         https://github.com/NvChad/starter \
-        "$HOME/.config/nvim" --depth 1
-      $DRY_RUN_CMD rm -f "$HOME/.config/nvim/lua/chadrc.lua"
-      $DRY_RUN_CMD rm -rf "$HOME/.config/nvim/lua/plugins"
+        "$HOME/.config/nvim" --depth 1; then
+        $DRY_RUN_CMD rm -f "$HOME/.config/nvim/lua/chadrc.lua"
+        $DRY_RUN_CMD rm -rf "$HOME/.config/nvim/lua/plugins"
+      fi
     fi
   '';
 

@@ -31,9 +31,14 @@
 
       hardware.bluetooth = {
         enable = true;
+        powerOnBoot = true;
+        settings.General.FastConnectable = true;
       };
       hardware.xpadneo.enable = true;
-      boot.extraModprobeConfig = "options bluetooth disable_ertm=Y";
+      boot.extraModprobeConfig = ''
+        options bluetooth disable_ertm=1
+        options btusb enable_autosuspend=0
+      '';
       services.upower.enable = true;
       services.power-profiles-daemon.enable = true;
 

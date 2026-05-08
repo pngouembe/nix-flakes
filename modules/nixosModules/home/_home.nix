@@ -154,6 +154,10 @@ in
     fi
   '';
 
+  # --- Zed editor ---
+
+  home.file.".config/zed/settings.json".source = ./config/zed/settings.json;
+
   # --- Cursor ---
 
   home.pointerCursor = {

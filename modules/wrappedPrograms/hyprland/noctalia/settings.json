@@ -638,7 +638,7 @@
         "automationEnabled": false,
         "directory": "/home/png/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
-        "enabled": true,
+        "enabled": false,
         "favorites": [
         ],
         "fillColor": "#000000",

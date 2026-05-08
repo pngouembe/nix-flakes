@@ -71,15 +71,19 @@ in
     '';
   };
 
+  # Make `nix-shell` and `nix develop` re-enter zsh so starship + aliases load.
+  programs.nix-your-shell = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # --- Prompt ---
 
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    package = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.starship;
   };
-
-  # Symlink live to dotfiles so edits take effect without rebuilding
-  home.file.".config/starship.toml".source = link "${dotfiles}/starship/starship.toml";
 
   # --- Fuzzy finder ---
 

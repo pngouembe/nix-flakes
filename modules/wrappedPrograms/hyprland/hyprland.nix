@@ -9,13 +9,6 @@
       noctaliaPkg = inputs.noctalia.packages.${system}.default;
       quickshellPkg = inputs.noctalia.inputs.noctalia-qs.packages.${system}.quickshell;
 
-      # Add a wallpaper image at ./wallpaper.png (or .jpg) to use it here.
-      # Falls back to a solid Catppuccin Mocha base colour.
-      wallpaperCmd =
-        if builtins.pathExists ./wallpaper.png then "swaybg -i ${./wallpaper.png} -m fill"
-        else if builtins.pathExists ./wallpaper.jpg then "swaybg -i ${./wallpaper.jpg} -m fill"
-        else "swaybg -c 1e1e2e";
-
       noctaliaConfigDir = pkgs.runCommand "noctalia-config" { } ''
         mkdir -p $out/noctalia
         cp ${./noctalia/settings.json} $out/noctalia/settings.json
@@ -28,12 +21,10 @@
           inherit pkgs;
           package = lib.mkForce hyprlandPkg;
 
-          "hypr.conf".content =
-            builtins.replaceStrings
-              [ "source = ./noctalia/noctalia-colors.conf" ]
-              [ "source = ${./hypr/noctalia/noctalia-colors.conf}" ]
-              (builtins.readFile ./hypr/hyprland.conf)
-            + "\nexec-once = ${wallpaperCmd}";
+          "hypr.conf".content = builtins.replaceStrings
+            [ "source = ./noctalia/noctalia-colors.conf" ]
+            [ "source = ${./hypr/noctalia/noctalia-colors.conf}" ]
+            (builtins.readFile ./hypr/hyprland.conf);
 
           env = {
             NIXOS_OZONE_WL = "1";
@@ -44,7 +35,6 @@
           extraPackages = [
             noctaliaPkg
             quickshellPkg
-            pkgs.swaybg
           ];
         }
       );

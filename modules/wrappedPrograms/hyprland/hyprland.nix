@@ -9,13 +9,6 @@
       noctaliaPkg = inputs.noctalia.packages.${system}.default;
       quickshellPkg = inputs.noctalia.inputs.noctalia-qs.packages.${system}.quickshell;
 
-      noctaliaConfigDir = pkgs.runCommand "noctalia-config" { } ''
-        mkdir -p $out/noctalia
-        cp ${./noctalia/settings.json} $out/noctalia/settings.json
-        cp ${./noctalia/colors.json}   $out/noctalia/colors.json
-        cp ${./noctalia/plugins.json}  $out/noctalia/plugins.json
-      '';
-
       hyprlandWrapped = inputs.wrappers.wrapperModules.hyprland.apply (
         { lib, ... }: {
           inherit pkgs;
@@ -28,7 +21,6 @@
 
           env = {
             NIXOS_OZONE_WL = "1";
-            XDG_CONFIG_HOME = "${noctaliaConfigDir}";
             NOCTALIA_CACHE_DIR = "/tmp/noctalia-cache";
           };
 

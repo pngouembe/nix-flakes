@@ -9,6 +9,7 @@
       zed-editor
       gcc
       claude-code
+      lmstudio
     ];
   };
 }

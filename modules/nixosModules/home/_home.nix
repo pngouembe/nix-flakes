@@ -157,6 +157,7 @@ in
   # --- Zed editor ---
 
   home.file.".config/zed/settings.json".source = ./config/zed/settings.json;
+  home.file.".config/zed/keymap.json".source = ./config/zed/keymap.json;
 
   # --- Cursor ---
 

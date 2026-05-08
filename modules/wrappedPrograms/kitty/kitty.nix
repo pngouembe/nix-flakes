@@ -14,6 +14,7 @@
           italic_font = "auto";
           bold_italic_font = "auto";
           window_padding_width = 8;
+          confirm_os_window_close = 0;
 
           # Noctalia Catppuccin Mocha theme
           background = "#1e1e2e";

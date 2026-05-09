@@ -27,6 +27,7 @@
           extraPackages = [
             noctaliaPkg
             quickshellPkg
+            pkgs.hyprpolkitagent
           ];
         }
       );

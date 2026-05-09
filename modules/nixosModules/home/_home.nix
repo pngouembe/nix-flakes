@@ -159,6 +159,31 @@ in
   home.file.".config/zed/settings.json".source = ./config/zed/settings.json;
   home.file.".config/zed/keymap.json".source = ./config/zed/keymap.json;
 
+  # --- opencode (AI coding agent, wired to LM Studio for local inference) ---
+  #
+  # LM Studio exposes an OpenAI-compatible server (default: http://localhost:1234/v1).
+  # Start it from the LM Studio app ("Developer" → "Start Server") or via `lms server start`.
+  # Add/remove entries under `models` to match what you have loaded in LM Studio
+  # (the key must equal the model id LM Studio reports at /v1/models).
+  programs.opencode = {
+    enable = true;
+    settings = {
+      provider.lmstudio = {
+        npm = "@ai-sdk/openai-compatible";
+        name = "LM Studio";
+        options.baseURL = "http://localhost:1234/v1";
+        models = {
+          "qwen/qwen3.6-35b-a3b" = {
+            name = "Qwen3.6 35B A3B";
+          };
+          "google/gemma-4-26b-a4b" = {
+            name = "Gemma4 26b A4b";
+          };
+        };
+      };
+    };
+  };
+
   # --- Cursor ---
 
   home.pointerCursor = {

@@ -234,6 +234,10 @@ in
     # Browsers
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+    # Notes & sync
+    obsidian
+    syncthing
+
     # Fonts
     nerd-fonts.fira-code
   ];

@@ -238,6 +238,7 @@ in
     dust
     eza
     fd
+    jq
     ripgrep
     tlrc
     just

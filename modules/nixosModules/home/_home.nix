@@ -171,10 +171,26 @@ in
   home.file.".config/noctalia/plugins.json".source =
     ../../wrappedPrograms/hyprland/noctalia/plugins.json;
 
+  # --- LM Studio (headless API server) ---
+  #
+  # `lms server start` reads ~/.lmstudio/.internal/app-install-location.json and
+  # spawns the unwrapped Electron binary, which can't run outside the bwrap FHS
+  # environment on NixOS — so the daemon never comes up. Start the wrapped
+  # `lm-studio` binary directly with `--run-as-service` instead. The HTTP server
+  # auto-starts on port 1234 because `autoStartOnLaunch` is set in
+  # ~/.lmstudio/.internal/http-server-config.json (configured via the GUI).
+  systemd.user.services.lmstudio = {
+    Unit.Description = "LM Studio headless API server";
+    Service = {
+      ExecStart = "${pkgs.lmstudio}/bin/lm-studio --run-as-service";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
   # --- opencode (AI coding agent, wired to LM Studio for local inference) ---
   #
-  # LM Studio exposes an OpenAI-compatible server (default: http://localhost:1234/v1).
-  # Start it from the LM Studio app ("Developer" → "Start Server") or via `lms server start`.
   # Add/remove entries under `models` to match what you have loaded in LM Studio
   # (the key must equal the model id LM Studio reports at /v1/models).
   programs.opencode = {

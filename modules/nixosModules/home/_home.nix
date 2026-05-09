@@ -159,6 +159,18 @@ in
   home.file.".config/zed/settings.json".source = ./config/zed/settings.json;
   home.file.".config/zed/keymap.json".source = ./config/zed/keymap.json;
 
+  # --- Noctalia (Quickshell) ---
+  #
+  # noctalia-shell loads user state from ~/.config/noctalia. Without these
+  # links the shell logs `plugins.json: File does not exist` and aborts plugin
+  # initialization, which leaves the bar invisible.
+  home.file.".config/noctalia/settings.json".source =
+    ../../wrappedPrograms/hyprland/noctalia/settings.json;
+  home.file.".config/noctalia/colors.json".source =
+    ../../wrappedPrograms/hyprland/noctalia/colors.json;
+  home.file.".config/noctalia/plugins.json".source =
+    ../../wrappedPrograms/hyprland/noctalia/plugins.json;
+
   # --- opencode (AI coding agent, wired to LM Studio for local inference) ---
   #
   # LM Studio exposes an OpenAI-compatible server (default: http://localhost:1234/v1).

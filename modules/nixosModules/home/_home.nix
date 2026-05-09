@@ -196,31 +196,7 @@ in
     };
   };
 
-  # --- Dark mode ---
-  #
-  # `color-scheme` is the freedesktop preference read by libadwaita/GTK4 apps,
-  # Firefox, Electron apps (Obsidian) and websites via prefers-color-scheme.
-  # `gtk-theme` covers legacy GTK3 apps that don't respect color-scheme.
-
-  dconf.settings."org/gnome/desktop/interface" = {
-    color-scheme = "prefer-dark";
-    gtk-theme = "catppuccin-mocha-mauve-standard";
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "catppuccin-mocha-mauve-standard";
-      package = pkgs.catppuccin-gtk.override {
-        variant = "mocha";
-        accents = [ "mauve" ];
-      };
-    };
-    # Don't apply the GTK3 theme to GTK4/libadwaita apps — they handle dark
-    # mode via the freedesktop color-scheme preference (set above) and
-    # forcing a GTK3 theme on them tends to break visuals.
-    gtk4.theme = null;
-  };
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   # --- Cursor ---
 

@@ -14,10 +14,10 @@
           inherit pkgs;
           package = lib.mkForce hyprlandPkg;
 
-          "hypr.conf".content = builtins.replaceStrings
-            [ "source = ./noctalia/noctalia-colors.conf" ]
-            [ "source = ${./hypr/noctalia/noctalia-colors.conf}" ]
-            (builtins.readFile ./hypr/hyprland.conf);
+          # Drop the wrapper's default `--config <path>` so Hyprland falls back
+          # to ~/.config/hypr/hyprland.conf (provided by the dotfiles repo via
+          # stow). The wrapper still bundles env vars and extraPackages.
+          flags."--config" = lib.mkForce false;
 
           env = {
             NIXOS_OZONE_WL = "1";

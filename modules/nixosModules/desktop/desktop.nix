@@ -2,9 +2,6 @@
 {
   flake.nixosModules.desktop =
     { pkgs, ... }:
-    let
-      kitty = self.packages.${pkgs.stdenv.hostPlatform.system}.kitty;
-    in
     {
       programs.hyprland = {
         enable = true;
@@ -54,7 +51,7 @@
       programs.firefox.enable = true;
 
       environment.systemPackages = [
-        kitty
+        pkgs.kitty
       ];
     };
 }
